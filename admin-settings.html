@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - CodingHub Admin</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .settings-card {
+            border: none;
+            border-radius: 0.75rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        .settings-card .card-header {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            padding: 1.25rem 1.5rem;
+        }
+        .settings-section {
+            padding: 1.5rem;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        .settings-section:last-child {
+            border-bottom: none;
+        }
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .setting-info h5 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        .setting-info p {
+            color: #6c757d;
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+        .form-switch .form-check-input {
+            width: 2.5em;
+            margin-left: -2.5em;
+            cursor: pointer;
+        }
+        .theme-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .theme-color.active {
+            border-color: #000;
+        }
+    </style>
+</head>
+<body class="d-flex">
+    <!-- Include Sidebar -->
+    <div id="sidebar"></div>
+
+    <!-- Main Content -->
+    <div class="col-md-9 col-lg-10 ms-sm-auto px-0 main-content">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg top-navbar p-3">
+            <div class="container-fluid">
+                <button class="btn btn-link d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="admin-avatar me-2">
+                                <span id="adminInitialsTop">A</span>
+                            </div>
+                            <span id="adminNameTop">Admin</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser2">
+                            <li><a class="dropdown-item" href="admin-profile.html"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="admin-settings.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="adminLogoutTop"><i class="fas fa-sign-out-alt me-2"></i>Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container-fluid p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h4 mb-0">Settings</h2>
+                <button class="btn btn-primary">
+                    <i class="fas fa-save me-1"></i> Save Changes
+                </button>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Account Settings -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            Account Settings
+                        </div>
+                        <div class="settings-section">
+                            <div class="mb-3">
+                                <label for="languageSelect" class="form-label">Language</label>
+                                <select class="form-select" id="languageSelect">
+                                    <option selected>English</option>
+                                    <option>Spanish</option>
+                                    <option>French</option>
+                                    <option>German</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="timezoneSelect" class="form-label">Time Zone</label>
+                                <select class="form-select" id="timezoneSelect">
+                                    <option value="-12:00">(GMT-12:00) International Date Line West</option>
+                                    <option value="-11:00">(GMT-11:00) Midway Island, Samoa</option>
+                                    <option value="-10:00">(GMT-10:00) Hawaii</option>
+                                    <option value="-09:00">(GMT-09:00) Alaska</option>
+                                    <option value="-08:00">(GMT-08:00) Pacific Time (US & Canada)</option>
+                                    <option value="-07:00">(GMT-07:00) Arizona</option>
+                                    <option value="-06:00">(GMT-06:00) Central America</option>
+                                    <option value="-05:00" selected>(GMT-05:00) Eastern Time (US & Canada)</option>
+                                </select>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                                <label class="form-check-label" for="emailNotifications">Email Notifications</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appearance -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            Appearance
+                        </div>
+                        <div class="settings-section">
+                            <div class="mb-3">
+                                <label class="form-label">Theme</label>
+                                <div>
+                                    <span class="theme-color bg-light active" data-theme="light" title="Light"></span>
+                                    <span class="theme-color bg-dark" data-theme="dark" title="Dark"></span>
+                                    <span class="theme-color" style="background: #2c3e50;" data-theme="blue" title="Blue"></span>
+                                    <span class="theme-color" style="background: #4e73df;" data-theme="indigo" title="Indigo"></span>
+                                </div>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                                <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="compactMode" checked>
+                                <label class="form-check-label" for="compactMode">Compact Mode</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            Security
+                        </div>
+                        <div class="settings-section">
+                            <div class="settings-item">
+                                <div class="setting-info">
+                                    <h5>Two-Factor Authentication</h5>
+                                    <p>Add an extra layer of security to your account</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                                </div>
+                            </div>
+                            <div class="settings-item">
+                                <div class="setting-info">
+                                    <h5>Login Notifications</h5>
+                                    <p>Get notified when someone logs into your account</p>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="loginNotifications" checked>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- Account Status -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            Account Status
+                        </div>
+                        <div class="settings-section text-center p-4">
+                            <div class="mb-3">
+                                <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
+                                <h5>Account Verified</h5>
+                                <p class="text-muted">Your account is secure and verified</p>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-danger">
+                                    <i class="fas fa-trash-alt me-1"></i> Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Help & Support -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            Help & Support
+                        </div>
+                        <div class="settings-section">
+                            <div class="list-group list-group-flush">
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="far fa-question-circle me-2"></i> Help Center
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="far fa-file-alt me-2"></i> Documentation
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="far fa-comment-alt me-2"></i> Send Feedback
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="far fa-envelope me-2"></i> Contact Support
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is authenticated
+            const isAuthenticated = sessionStorage.getItem('isAdminLoggedIn') === 'true' || 
+                                  localStorage.getItem('adminRememberToken') !== null;
+            
+            if (!isAuthenticated) {
+                window.location.href = 'admin-login.html';
+            } else {
+                // Set admin info
+                const adminEmail = sessionStorage.getItem('adminEmail') || 
+                                 localStorage.getItem('adminEmail') || 
+                                 'admin@codinghub.com';
+                const adminName = adminEmail.split('@')[0];
+                const adminInitials = adminName.substring(0, 2).toUpperCase();
+                
+                // Update UI elements
+                document.querySelectorAll('#adminInitials, #adminInitialsTop').forEach(el => {
+                    if (el) el.textContent = adminInitials;
+                });
+                
+                document.querySelectorAll('#adminName, #adminNameTop').forEach(el => {
+                    if (el) el.textContent = adminName;
+                });
+            }
+
+            // Handle theme switching
+            const themeColors = document.querySelectorAll('.theme-color');
+            themeColors.forEach(color => {
+                color.addEventListener('click', function() {
+                    document.querySelector('.theme-color.active').classList.remove('active');
+                    this.classList.add('active');
+                    // Here you would apply the theme
+                });
+            });
+
+            // Handle logout
+            const logoutBtn = document.getElementById('adminLogoutTop');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    sessionStorage.removeItem('isAdminLoggedIn');
+                    sessionStorage.removeItem('adminEmail');
+                    localStorage.removeItem('adminRememberToken');
+                    window.location.href = 'admin-login.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

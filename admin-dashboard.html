@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>CodingHub : Admin Dashboard</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/icon.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: #374652;
+            color: #fff;
+            transition: all 0.3s;
+        }
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            padding: 0.8rem 1rem;
+            margin: 0.2rem 0;
+            border-radius: 0.25rem;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background: #34495e;
+            color: #fb873f;
+        }
+        .sidebar .nav-link i {
+            width: 24px;
+            text-align: center;
+            margin-right: 0.5rem;
+        }
+        .main-content {
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        .top-navbar {
+            background: #fff;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+        }
+        .card {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-icon {
+            font-size: 2rem;
+            color: #fb873f;
+            margin-bottom: 1rem;
+        }
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #fb873f;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .dropdown-menu {
+            border: none;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            padding: 0.75rem 0;
+            margin-top: 0.75rem;
+            min-width: 14rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transform: translateY(10px);
+            opacity: 0;
+            visibility: hidden;
+            display: block;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .show > .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-item {
+            padding: 0.65rem 1.5rem;
+            color: #2d3748;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: #fff8f2;
+            color: #fb5607;
+            padding-left: 1.75rem;
+            border-left-color: #fb5607;
+            transform: translateX(5px);
+        }
+        .dropdown-divider {
+            margin: 0.75rem 1.5rem;
+            border-top: 2px solid #f0f0f0;
+        }
+        .dropdown-toggle {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .dropdown-toggle::after {
+            vertical-align: middle;
+            margin-left: 0.5rem;
+            transition: all 0.3s ease;
+            border-top: 0.35em solid;
+            border-right: 0.35em solid transparent;
+            border-left: 0.35em solid transparent;
+        }
+        .show > .dropdown-toggle::after {
+            transform: rotate(180deg) translateY(2px);
+        }
+        .dropdown-toggle:hover {
+            color: #fb5607 !important;
+        }
+        /* Dark theme dropdown in sidebar */
+        .sidebar .dropdown-menu {
+            background-color: #2c3e50;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .sidebar .dropdown-item {
+            color: #e2e8f0;
+        }
+        .sidebar .dropdown-item:hover, 
+        .sidebar .dropdown-item:focus {
+            background-color: rgba(251, 97, 7, 0.1);
+            color: #ff8c42;
+            border-left-color: #ff8c42;
+        }
+        .sidebar .dropdown-divider {
+            border-top: 2px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 px-0 sidebar">
+                <div class="d-flex flex-column p-3">
+                    <a href="index.html" class="d-flex align-items-center mb-4 text-decoration-none">
+                        <span class="fs-4 text-white">CodingHub</span>
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-users"></i>
+                                Users
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-book"></i>
+                                Courses
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-chart-bar"></i>
+                                Analytics
+                            </a>
+                        </li>
+                        <li>
+                            <a href="admin-settings.html" class="nav-link">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="admin-avatar me-2">
+                                <span id="adminInitials">A</span>
+                            </div>
+                            <span id="adminName">Admin</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                            <li><a class="dropdown-item" href="admin-profile.html">Profile</a></li>
+                            <li><a class="dropdown-item" href="admin-settings.html">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="adminLogout">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 ms-sm-auto px-0 main-content">
+                <!-- Top Navbar -->
+                <nav class="navbar navbar-expand-lg top-navbar p-3">
+                    <div class="container-fluid">
+                        <button class="btn btn-link d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="d-flex align-items-center">
+                            <div class="dropdown">
+                                <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="admin-avatar me-2">
+                                        <span id="adminInitialsTop">A</span>
+                                    </div>
+                                    <span id="adminNameTop">Admin</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser2">
+                                    <li><a class="dropdown-item" href="admin-profile.html">Profile</a></li>
+                                    <li><a class="dropdown-item" href="admin-settings.html">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="admin-login.html" id="adminLogoutTop">Sign out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Page Content -->
+                <div class="container-fluid p-4">
+                    <h2 class="mb-4">Dashboard Overview</h2>
+                    
+                    <!-- Stats Cards -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card h-100 p-4">
+                                <div class="card-body text-center">
+                                    <div class="card-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <h5 class="card-title">Total Users</h5>
+                                    <h2 class="mb-0">1,254</h2>
+                                    <p class="text-success mb-0">+12% from last month</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card h-100 p-4">
+                                <div class="card-body text-center">
+                                    <div class="card-icon">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <h5 class="card-title">Total Courses</h5>
+                                    <h2 class="mb-0">48</h2>
+                                    <p class="text-success mb-0">+3 new this month</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card h-100 p-4">
+                                <div class="card-body text-center">
+                                    <div class="card-icon">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <h5 class="card-title">Enrollments</h5>
+                                    <h2 class="mb-0">3,845</h2>
+                                    <p class="text-success mb-0">+24% from last month</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card h-100 p-4">
+                                <div class="card-body text-center">
+                                    <div class="card-icon">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <h5 class="card-title">Avg. Rating</h5>
+                                    <h2 class="mb-0">4.8</h2>
+                                    <p class="text-muted mb-0">Based on 1,024 reviews</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h5 class="mb-0">Recent Activity</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Activity</th>
+                                                    <th>Time</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>John Doe</td>
+                                                    <td>Enrolled in Web Development Course</td>
+                                                    <td>2 mins ago</td>
+                                                    <td><span class="badge bg-success">Completed</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jane Smith</td>
+                                                    <td>Completed Python Basics</td>
+                                                    <td>1 hour ago</td>
+                                                    <td><span class="badge bg-success">Completed</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Mike Johnson</td>
+                                                    <td>Started JavaScript Course</td>
+                                                    <td>3 hours ago</td>
+                                                    <td><span class="badge bg-warning">In Progress</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Sarah Williams</td>
+                                                    <td>Submitted Assignment #3</td>
+                                                    <td>5 hours ago</td>
+                                                    <td><span class="badge bg-info">Pending Review</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>David Brown</td>
+                                                    <td>Upgraded to Premium Plan</td>
+                                                    <td>1 day ago</td>
+                                                    <td><span class="badge bg-success">Completed</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is authenticated
+            const isAuthenticated = sessionStorage.getItem('isAdminLoggedIn') === 'true' || 
+                                  localStorage.getItem('adminRememberToken') !== null;
+            
+            if (!isAuthenticated) {
+                // Redirect to login page if not authenticated
+                window.location.href = 'admin-login.html';
+            } else {
+                // Set admin info if available
+                const adminEmail = sessionStorage.getItem('adminEmail') || 
+                                 localStorage.getItem('adminEmail') || 
+                                 'admin@codinghub.com';
+                const adminInitials = adminEmail.substring(0, 2).toUpperCase();
+                
+                document.querySelectorAll('#adminInitials, #adminInitialsTop').forEach(el => {
+                    if (el) el.textContent = adminInitials;
+                });
+                
+                document.querySelectorAll('#adminName, #adminNameTop').forEach(el => {
+                    if (el) el.textContent = adminEmail.split('@')[0];
+                });
+            }
+
+            // Handle logout
+            function handleLogout() {
+                // Clear the session
+                sessionStorage.removeItem('isAdminLoggedIn');
+                sessionStorage.removeItem('adminEmail');
+                localStorage.removeItem('adminRememberToken');
+                // Redirect to login page
+                window.location.href = 'admin-login.html';
+            }
+
+            // Add logout event listeners
+            const logoutBtn = document.getElementById('adminLogout');
+            const logoutTopBtn = document.getElementById('adminLogoutTop');
+            
+            if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+            if (logoutTopBtn) logoutTopBtn.addEventListener('click', handleLogout);
+        });
+    </script>
+</body>
+
+</html>

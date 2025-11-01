@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polytechnic Admission Test - CodingHub</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="img/icon.png" rel="icon">
+
+    <style>
+        :root {
+            --primary-color: #fb873f;
+            --secondary-color: #181d38;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .content-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 7px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            color: var(--dark-text);
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 7px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .subject-card:hover::before {
+            left: 100%;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(251, 135, 63, 0.3);
+        }
+
+        .subject-card.selected {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #ff6b35);
+            color: white;
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .subject-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .subject-card.selected i {
+            color: white;
+            animation: bounce 0.6s ease;
+        }
+
+        .subject-card h4 {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .subject-card p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            80% { transform: translateY(-5px); }
+        }
+
+        .exam-container {
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), #ff6b35);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timer.warning {
+            color: #ffd700;
+            animation: pulse 1s infinite;
+        }
+
+        .timer.danger {
+            color: #ff4757;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress {
+            height: 12px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--success-color), #20bf6b);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .question-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-number {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .option::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 50%;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(251, 135, 63, 0.05);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, rgba(251, 135, 63, 0.1), rgba(251, 135, 63, 0.05));
+        }
+
+        .option.selected::before {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            border-radius: 7px;
+            padding: 12px 30px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), #ff6b35);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(251, 135, 63, 0.3);
+        }
+
+        .btn-outline-secondary {
+            background: transparent;
+            border: 2px solid #6c757d;
+            color: #6c757d;
+        }
+
+        .btn-outline-secondary:hover {
+            background: #6c757d;
+            color: white;
+        }
+
+        .header {
+            margin-bottom: 20px;
+        }
+        
+        /* Modern Button Styles */
+        .button-group {
+            margin: 30px 0;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn-nav {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            border: none;
+            color: #4a5568;
+            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 7px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), #ff9a5a);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn-nav:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-nav:hover::before {
+            opacity: 1;
+        }
+        
+        .btn-nav i {
+            margin-right: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-nav:hover i {
+            transform: scale(1.1);
+        }
+        
+        .btn-fun {
+            background: linear-gradient(135deg, #ff6b35, #ff3366);
+            color: white;
+            font-weight: 700;
+            padding: 14px 35px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-fun::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff3366, #ff6b35);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .btn-fun:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.5);
+        }
+        
+        .btn-fun:hover::after {
+            opacity: 1;
+        }
+        
+        .btn-fun i {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-fun:hover i {
+            transform: rotate(10deg) scale(1.1);
+        }
+        
+        .d-flex {
+            display: flex !important;
+        }
+        
+        .justify-content-center {
+            justify-content: center !important;
+        }
+        
+        .gap-3 {
+            gap: 1rem !important;
+        }
+        
+        .text-center {
+            text-align: center !important;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #20bf6b);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-fun {
+            background: linear-gradient(135deg, #ffc107, #ff6b35);
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-fun:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+            color: #fff;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .result-container {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .result-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), #ff6b35);
+            border-radius: 3px;
+        }
+
+        .result-header h2 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #2c3e50, #4a6fa5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .result-score {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-percentage {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 30px;
+        }
+
+        .result-message {
+            font-size: 1.2rem;
+            color: var(--dark-text);
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .spinner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            border: 0.3em solid rgba(251, 135, 63, 0.2);
+            border-top: 0.3em solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .subject-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .exam-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div class="spinner" id="loadingSpinner">
+        <div class="spinner-border"></div>
+    </div>
+
+    <div class="main-container">
+        <div class="content-wrapper">
+            <!-- Subject Selection -->
+            <div id="subjectSelection">
+                <div class="header">
+                    <h1><i class="fas fa-graduation-cap"></i> Polytechnic Admission Test</h1>
+                    <p>Choose your subject to begin the practice exam</p>
+                </div>
+                
+                <div class="subject-grid">
+                    <div class="subject-card" data-subject="mathematics">
+                        <i class="fas fa-calculator"></i>
+                        <h4>Mathematics</h4>
+                        <p>Algebra, Geometry, Trigonometry</p>
+                    </div>
+
+                    <div class="subject-card" data-subject="physics">
+                        <i class="fas fa-atom"></i>
+                        <h4>Physics</h4>
+                        <p>Mechanics, Electricity, Optics</p>
+                    </div>
+
+                    <div class="subject-card" data-subject="chemistry">
+                        <i class="fas fa-flask"></i>
+                        <h4>Chemistry</h4>
+                        <p>Organic, Inorganic, Physical</p>
+                    </div>
+
+                    <div class="subject-card" data-subject="english">
+                        <i class="fas fa-language"></i>
+                        <h4>English</h4>
+                        <p>Grammar, Vocabulary, Comprehension</p>
+                    </div>
+
+                    <div class="subject-card" data-subject="bangla">
+                        <i class="fas fa-book"></i>
+                        <h4>বাংলা</h4>
+                        <p>ব্যাকরণ, সাহিত্য, রচনা</p>
+                    </div>
+
+                    <div class="subject-card" data-subject="general_knowledge">
+                        <i class="fas fa-globe-asia"></i>
+                        <h4>General Knowledge</h4>
+                        <p>History, Geography, Current Affairs</p>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin: 30px 0;">
+                    <button class="btn btn-primary" id="startExamBtn" disabled>
+                        <i class="fas fa-play"></i>
+                        Start Exam (10 Questions • 30 Minutes)
+                    </button>
+                </div>
+
+                <!-- Navigation Buttons Row -->
+                <div class="button-group">
+                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                        <a href="polytechnic-admission.html" class="btn btn-nav">
+                            <i class="fas fa-home"></i> Back to Home
+                        </a>
+                        <a href="fun-break.html" class="btn btn-fun" target="_blank">
+                            <i class="fas fa-smile"></i> Make Some Fun
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exam Container -->
+            <div class="exam-container" id="examContainer">
+                <div class="exam-header">
+                    <div>
+                        <h3 id="currentSubject" class="mb-0"></h3>
+                        <small>Practice Exam</small>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        
+                        <div class="timer" id="timer">
+                            <i class="far fa-clock"></i>
+                            <span id="countdown">30:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress">
+                        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                    </div>
+                    <small class="text-muted mt-2 d-block">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></small>
+                </div>
+
+                <div class="question-container" id="questionContainer">
+                    <!-- Questions will be inserted here -->
+                </div>
+
+                <!-- Question Navigation -->
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <button id="prevBtn" class="btn btn-outline-primary" onclick="previousQuestion()" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <div class="question-counter">
+                        Question <span id="currentQ">1</span> of <span id="totalQ">10</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button id="submitExamBtn" class="btn btn-success" style="display: none;" onclick="submitExam()">
+                            <i class="fas fa-paper-plane"></i> Submit Exam
+                        </button>
+                        <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="button-group" style="margin: 30px 0 15px 0;">
+                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                        <a href="#" class="btn btn-nav" onclick="restartExam(); return false;">
+                            <i class="fas fa-arrow-left"></i> Back to Subjects
+                        </a>
+                        <a href="fun-break.html" class="btn btn-fun" target="_blank">
+                            <i class="fas fa-smile"></i> Make Some Fun
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Results Container -->
+            <div class="result-container" id="resultContainer" style="display: none;">
+                <!-- Results will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Sample Questions Database
+        const allQuestions = {
+            mathematics: [
+                {
+                    question: "What is the value of √64?",
+                    options: ["6", "7", "8", "9"],
+                    answer: 2
+                },
+                {
+                    question: "If x + 5 = 12, what is the value of x?",
+                    options: ["5", "6", "7", "8"],
+                    answer: 2
+                },
+                {
+                    question: "What is 15% of 200?",
+                    options: ["25", "30", "35", "40"],
+                    answer: 1
+                },
+                {
+                    question: "The area of a circle with radius 7 cm is:",
+                    options: ["154 cm²", "149 cm²", "144 cm²", "139 cm²"],
+                    answer: 0
+                },
+                {
+                    question: "What is the slope of the line y = 3x + 2?",
+                    options: ["2", "3", "5", "1"],
+                    answer: 1
+                },
+                {
+                    question: "If log₂8 = x, then x equals:",
+                    options: ["2", "3", "4", "5"],
+                    answer: 1
+                },
+                {
+                    question: "The sum of interior angles of a pentagon is:",
+                    options: ["540°", "360°", "720°", "900°"],
+                    answer: 0
+                },
+                {
+                    question: "What is the derivative of x³?",
+                    options: ["3x²", "x²", "3x", "x³"],
+                    answer: 0
+                },
+                {
+                    question: "If sin θ = 3/5, then cos θ = ?",
+                    options: ["4/5", "3/4", "5/4", "5/3"],
+                    answer: 0
+                },
+                {
+                    question: "The value of 2⁵ is:",
+                    options: ["10", "25", "32", "64"],
+                    answer: 2
+                },
+                {
+                    question: "What is the median of 3, 7, 2, 9, 5?",
+                    options: ["3", "5", "7", "9"],
+                    answer: 1
+                },
+                {
+                    question: "If a = 4 and b = 3, what is a² + b²?",
+                    options: ["25", "24", "23", "49"],
+                    answer: 0
+                }
+            ],
+            physics: [
+                {
+                    question: "What is the unit of force?",
+                    options: ["Joule", "Newton", "Watt", "Pascal"],
+                    answer: 1
+                },
+                {
+                    question: "The speed of light in vacuum is:",
+                    options: ["3 × 10⁸ m/s", "3 × 10⁶ m/s", "3 × 10⁷ m/s", "3 × 10⁹ m/s"],
+                    answer: 0
+                },
+                {
+                    question: "What is the acceleration due to gravity on Earth?",
+                    options: ["9.8 m/s²", "10 m/s²", "8.9 m/s²", "11 m/s²"],
+                    answer: 0
+                },
+                {
+                    question: "Which law states F = ma?",
+                    options: ["Newton's First Law", "Newton's Second Law", "Newton's Third Law", "Law of Gravitation"],
+                    answer: 1
+                },
+                {
+                    question: "The unit of electric current is:",
+                    options: ["Volt", "Ohm", "Ampere", "Watt"],
+                    answer: 2
+                },
+                {
+                    question: "What is the formula for kinetic energy?",
+                    options: ["mgh", "½mv²", "mv", "ma"],
+                    answer: 1
+                },
+                {
+                    question: "The SI unit of pressure is:",
+                    options: ["Pascal", "Newton", "Joule", "Watt"],
+                    answer: 0
+                },
+                {
+                    question: "What happens to the wavelength when frequency increases?",
+                    options: ["Increases", "Decreases", "Stays same", "Doubles"],
+                    answer: 1
+                },
+                {
+                    question: "The resistance of a conductor depends on:",
+                    options: ["Length only", "Area only", "Material only", "All of the above"],
+                    answer: 3
+                },
+                {
+                    question: "What is the unit of work?",
+                    options: ["Newton", "Joule", "Watt", "Pascal"],
+                    answer: 1
+                },
+                {
+                    question: "The refractive index of water is approximately:",
+                    options: ["1.33", "1.5", "1.0", "2.0"],
+                    answer: 0
+                },
+                {
+                    question: "What type of lens is used to correct myopia?",
+                    options: ["Convex", "Concave", "Bifocal", "Cylindrical"],
+                    answer: 1
+                }
+            ],
+            chemistry: [
+                {
+                    question: "What is the chemical formula of water?",
+                    options: ["H₂O", "HO₂", "H₃O", "H₂O₂"],
+                    answer: 0
+                },
+                {
+                    question: "The atomic number of Carbon is:",
+                    options: ["4", "6", "8", "12"],
+                    answer: 1
+                },
+                {
+                    question: "Which gas is known as laughing gas?",
+                    options: ["CO₂", "N₂O", "NH₃", "SO₂"],
+                    answer: 1
+                },
+                {
+                    question: "The pH of pure water is:",
+                    options: ["6", "7", "8", "9"],
+                    answer: 1
+                },
+                {
+                    question: "What is the molecular formula of methane?",
+                    options: ["CH₃", "CH₄", "C₂H₄", "C₂H₆"],
+                    answer: 1
+                },
+                {
+                    question: "Which element has the symbol 'Au'?",
+                    options: ["Aluminum", "Silver", "Gold", "Argon"],
+                    answer: 2
+                },
+                {
+                    question: "What is the most abundant gas in air?",
+                    options: ["Oxygen", "Nitrogen", "Carbon dioxide", "Argon"],
+                    answer: 1
+                },
+                {
+                    question: "The process of rusting is an example of:",
+                    options: ["Reduction", "Oxidation", "Neutralization", "Sublimation"],
+                    answer: 1
+                },
+                {
+                    question: "Which acid is present in vinegar?",
+                    options: ["Citric acid", "Acetic acid", "Sulfuric acid", "Hydrochloric acid"],
+                    answer: 1
+                },
+                {
+                    question: "What is the chemical name of common salt?",
+                    options: ["Sodium chloride", "Potassium chloride", "Calcium chloride", "Magnesium chloride"],
+                    answer: 0
+                },
+                {
+                    question: "The valency of oxygen is:",
+                    options: ["1", "2", "3", "4"],
+                    answer: 1
+                },
+                {
+                    question: "Which gas is released during photosynthesis?",
+                    options: ["Carbon dioxide", "Nitrogen", "Oxygen", "Hydrogen"],
+                    answer: 2
+                }
+            ],
+            english: [
+                {
+                    question: "Choose the correct spelling:",
+                    options: ["Recieve", "Receive", "Receeve", "Receve"],
+                    answer: 1
+                },
+                {
+                    question: "What is the plural of 'child'?",
+                    options: ["Childs", "Children", "Childes", "Child"],
+                    answer: 1
+                },
+                {
+                    question: "Which is the correct sentence?",
+                    options: ["He don't like it", "He doesn't like it", "He not like it", "He no like it"],
+                    answer: 1
+                },
+                {
+                    question: "The past tense of 'go' is:",
+                    options: ["Goed", "Gone", "Went", "Goes"],
+                    answer: 2
+                },
+                {
+                    question: "What is the opposite of 'ancient'?",
+                    options: ["Old", "Modern", "Historic", "Traditional"],
+                    answer: 1
+                },
+                {
+                    question: "Choose the correct article: '__ university'",
+                    options: ["A", "An", "The", "No article"],
+                    answer: 0
+                },
+                {
+                    question: "What type of word is 'quickly'?",
+                    options: ["Noun", "Verb", "Adjective", "Adverb"],
+                    answer: 3
+                },
+                {
+                    question: "The synonym of 'happy' is:",
+                    options: ["Sad", "Joyful", "Angry", "Worried"],
+                    answer: 1
+                },
+                {
+                    question: "Which sentence is in passive voice?",
+                    options: ["She writes a letter", "A letter is written by her", "She is writing", "She wrote"],
+                    answer: 1
+                },
+                {
+                    question: "The superlative form of 'good' is:",
+                    options: ["Better", "Gooder", "Best", "Most good"],
+                    answer: 2
+                },
+                {
+                    question: "What is a group of lions called?",
+                    options: ["Herd", "Flock", "Pride", "Pack"],
+                    answer: 2
+                },
+                {
+                    question: "The word 'bibliography' means:",
+                    options: ["Life story", "List of books", "Study of books", "Book writing"],
+                    answer: 1
+                }
+            ],
+            bangla: [
+                {
+                    question: "'সূর্য' শব্দের সমার্থক শব্দ কোনটি?",
+                    options: ["চাঁদ", "রবি", "তারা", "গ্রহ"],
+                    answer: 1
+                },
+                {
+                    question: "'কাজের মানুষ' বাগধারাটির অর্থ কী?",
+                    options: ["উপকারী লোক", "কর্মঠ ব্যক্তি", "খেটে খাওয়া মানুষ", "দক্ষ কারিগর"],
+                    answer: 0
+                },
+                {
+                    question: "বাংলা ভাষার প্রথম কবিতা কোনটি?",
+                    options: ["চর্যাপদ", "শ্রীকৃষ্ণকীর্তন", "অন্নদামঙ্গল", "মনসামঙ্গল"],
+                    answer: 0
+                },
+                {
+                    question: "'অপরাহ্ণ' শব্দের অর্থ কী?",
+                    options: ["সকাল", "দুপুর", "বিকাল", "সন্ধ্যা"],
+                    answer: 2
+                },
+                {
+                    question: "রবীন্দ্রনাথ ঠাকুরের নোবেল পুরস্কারপ্রাপ্ত কাব্যগ্রন্থ:",
+                    options: ["গীতাঞ্জলি", "সোনার তরী", "চিত্রা", "কথা"],
+                    answer: 0
+                },
+                {
+                    question: "'ব্যাকরণ' শব্দটি কোন ভাষা থেকে এসেছে?",
+                    options: ["আরবি", "ফারসি", "সংস্কৃত", "ইংরেজি"],
+                    answer: 2
+                },
+                {
+                    question: "'পদ্মা নদীর মাঝি' উপন্যাসের লেখক কে?",
+                    options: ["বঙ্কিমচন্দ্র", "মানিক বন্দ্যোপাধ্যায়", "তারাশঙ্কর", "বিভূতিভূষণ"],
+                    answer: 1
+                },
+                {
+                    question: "বাংলা একাডেমি প্রতিষ্ঠিত হয় কত সালে?",
+                    options: ["১৯৫২", "১৯৫৪", "১৯৫৫", "১৯৫৬"],
+                    answer: 2
+                },
+                {
+                    question: "'হাতে কলমে' বাগধারার অর্থ কী?",
+                    options: ["নিজ হাতে", "ব্যবহারিক", "হাতের কাজ", "কঠিন কাজ"],
+                    answer: 1
+                },
+                {
+                    question: "বাংলা ভাষায় স্বরবর্ণ কয়টি?",
+                    options: ["১০টি", "১১টি", "১২টি", "১৩টি"],
+                    answer: 1
+                },
+                {
+                    question: "'মুক্তিযুদ্ধ' শব্দটি কোন সমাস?",
+                    options: ["কর্মধারয়", "তৎপুরুষ", "বহুব্রীহি", "অব্যয়ীভাব"],
+                    answer: 1
+                },
+                {
+                    question: "কাজী নজরুল ইসলামের প্রথম কাব্যগ্রন্থ:",
+                    options: ["বিষের বাঁশি", "অগ্নিবীণা", "সাম্যবাদী", "ছায়ানট"],
+                    answer: 1
+                }
+            ],
+            general_knowledge: [
+                {
+                    question: "বাংলাদেশের রাজধানী কোনটি?",
+                    options: ["চট্টগ্রাম", "ঢাকা", "সিলেট", "রাজশাহী"],
+                    answer: 1
+                },
+                {
+                    question: "বাংলাদেশের স্বাধীনতা দিবস কবে?",
+                    options: ["২১ ফেব্রুয়ারি", "১৬ ডিসেম্বর", "২৬ মার্চ", "১৪ এপ্রিল"],
+                    answer: 2
+                },
+                {
+                    question: "বিশ্বের সর্ববৃহৎ মহাদেশ কোনটি?",
+                    options: ["আফ্রিকা", "এশিয়া", "ইউরোপ", "উত্তর আমেরিকা"],
+                    answer: 1
+                },
+                {
+                    question: "জাতিসংঘের সদর দপ্তর কোথায়?",
+                    options: ["লন্ডন", "প্যারিস", "নিউইয়র্ক", "জেনেভা"],
+                    answer: 2
+                },
+                {
+                    question: "বাংলাদেশের জাতীয় ফুল কোনটি?",
+                    options: ["গোলাপ", "শাপলা", "জবা", "বেলি"],
+                    answer: 1
+                },
+                {
+                    question: "পৃথিবীর সবচেয়ে উঁচু পর্বত কোনটি?",
+                    options: ["কে২", "এভারেস্ট", "কাঞ্চনজঙ্ঘা", "মাকালু"],
+                    answer: 1
+                },
+                {
+                    question: "বাংলাদেশের জাতীয় পাখি কোনটি?",
+                    options: ["কাক", "দোয়েল", "শালিক", "কবুতর"],
+                    answer: 1
+                },
+                {
+                    question: "FIFA বিশ্বকাপ ২০২২ কোন দেশে অনুষ্ঠিত হয়?",
+                    options: ["রাশিয়া", "কাতার", "ব্রাজিল", "জার্মানি"],
+                    answer: 1
+                },
+                {
+                    question: "বঙ্গবন্ধু শেখ মুজিবুর রহমান কত সালে জন্মগ্রহণ করেন?",
+                    options: ["১৯২০", "১৯২১", "১৯২২", "১৯২৩"],
+                    answer: 0
+                },
+                {
+                    question: "পদ্মা সেতুর দৈর্ঘ্য কত কিলোমিটার?",
+                    options: ["৫.১৫", "৬.১৫", "৭.১৫", "৮.১৫"],
+                    answer: 1
+                },
+                {
+                    question: "বাংলাদেশের কোন জেলায় সবচেয়ে বেশি চা বাগান?",
+                    options: ["সিলেট", "মৌলভীবাজার", "হবিগঞ্জ", "চট্টগ্রাম"],
+                    answer: 1
+                },
+                {
+                    question: "আন্তর্জাতিক মাতৃভাষা দিবস কবে?",
+                    options: ["২১ ফেব্রুয়ারি", "২৬ মার্চ", "১৬ ডিসেম্বর", "১৪ এপ্রিল"],
+                    answer: 0
+                }
+            ]
+        };
+
+        // Subject names mapping
+        const subjectNames = {
+            'mathematics': 'Mathematics',
+            'physics': 'Physics', 
+            'chemistry': 'Chemistry',
+            'english': 'English',
+            'bangla': 'বাংলা',
+            'general_knowledge': 'General Knowledge'
+        };
+
+        // Global variables
+        let currentQuestions = [];
+        let userAnswers = [];
+        let currentQuestionIndex = 0;
+        let timeLeft = 30 * 60; // 30 minutes
+        let timer;
+        let selectedSubject = '';
+
+        // DOM Elements
+        const subjectSelection = document.getElementById('subjectSelection');
+        const examContainer = document.getElementById('examContainer');
+        const resultContainer = document.getElementById('resultContainer');
+        const startExamBtn = document.getElementById('startExamBtn');
+        const currentSubjectEl = document.getElementById('currentSubject');
+        const timerEl = document.getElementById('timer');
+        const countdownEl = document.getElementById('countdown');
+        const progressBar = document.getElementById('progressBar');
+        const currentQuestionEl = document.getElementById('currentQuestion');
+        const totalQuestionsEl = document.getElementById('totalQuestions');
+        const questionContainer = document.getElementById('questionContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading spinner
+            setTimeout(() => {
+                loadingSpinner.style.display = 'none';
+            }, 1000);
+
+            // Add event listeners for subject cards
+            document.querySelectorAll('.subject-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    selectSubject(this.dataset.subject);
+                });
+            });
+
+            // Add event listeners for buttons
+            startExamBtn.addEventListener('click', startExam);
+            prevBtn.addEventListener('click', previousQuestion);
+            nextBtn.addEventListener('click', nextQuestion);
+            submitBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to submit your exam? You cannot change your answers after submission.')) {
+                    submitExam();
+                }
+            });
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (examContainer.style.display !== 'none') {
+                    switch(e.key) {
+                        case 'ArrowLeft':
+                            e.preventDefault();
+                            previousQuestion();
+                            break;
+                        case 'ArrowRight':
+                            e.preventDefault();
+                            nextQuestion();
+                            break;
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                            e.preventDefault();
+                            selectOption(parseInt(e.key) - 1);
+                            break;
+                        case 'Enter':
+                            e.preventDefault();
+                            if (currentQuestionIndex === currentQuestions.length - 1) {
+                                if (confirm('Submit exam?')) submitExam();
+                            } else {
+                                nextQuestion();
+                            }
+                            break;
+                    }
+                }
+            });
+        });
+
+        // Select subject function
+        function selectSubject(subject) {
+            // Remove selection from all cards
+            document.querySelectorAll('.subject-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Add selection to clicked card
+            document.querySelector(`[data-subject="${subject}"]`).classList.add('selected');
+
+            // Update selected subject and enable start button
+            selectedSubject = subject;
+            startExamBtn.disabled = false;
+            startExamBtn.innerHTML = `<i class="fas fa-play"></i> Start ${subjectNames[subject]} Exam`;
+        }
+
+        // Start exam function
+        function startExam() {
+            // Get questions for selected subject
+            const allSubjectQuestions = [...allQuestions[selectedSubject]];
+            
+            // Shuffle and select 10 questions
+            currentQuestions = shuffleArray(allSubjectQuestions).slice(0, 10);
+            userAnswers = new Array(currentQuestions.length).fill(null);
+            currentQuestionIndex = 0;
+
+            // Update UI
+            subjectSelection.style.display = 'none';
+            examContainer.style.display = 'block';
+            currentSubjectEl.textContent = subjectNames[selectedSubject];
+            totalQuestionsEl.textContent = currentQuestions.length;
+
+            // Start timer and show first question
+            startTimer();
+            showQuestion(0);
+        }
+
+        // Shuffle array function
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Show question function
+        function showQuestion(index) {
+            if (index < 0 || index >= currentQuestions.length) return;
+
+            currentQuestionIndex = index;
+            const question = currentQuestions[index];
+            const questionContainer = document.getElementById('questionContainer');
+            let optionsHtml = '';
+
+            // Build options
+            question.options.forEach((option, i) => {
+                const isSelected = userAnswers[currentQuestionIndex] === i;
+                optionsHtml += `
+                    <div class="option ${isSelected ? 'selected' : ''}" onclick="selectOption(${i})">
+                        ${option}
+                    </div>
+                `;
+            });
+
+            // Update question
+            questionContainer.innerHTML = `
+                <div class="question">${question.question}</div>
+                <div class="options">${optionsHtml}</div>
+            `;
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = index === 0;
+            const isLastQuestion = index === currentQuestions.length - 1;
+            
+            // Update button visibility
+            if (isLastQuestion) {
+                document.getElementById('nextBtn').style.display = 'none';
+                document.getElementById('submitExamBtn').style.display = 'inline-flex';
+            } else {
+                document.getElementById('nextBtn').style.display = 'inline-flex';
+                document.getElementById('submitExamBtn').style.display = 'none';
+            }
+            
+            // Update current question counter
+            document.getElementById('currentQ').textContent = index + 1;
+            
+            // Update progress bar
+
+            // Update progress and counters
+            updateProgress();
+        }
+
+        // Select option function
+        function selectOption(optionIndex) {
+            if (optionIndex < 0 || optionIndex >= currentQuestions[currentQuestionIndex].options.length) return;
+
+            userAnswers[currentQuestionIndex] = optionIndex;
+
+            // Update option selection in UI
+            document.querySelectorAll('.option').forEach((option, i) => {
+                option.classList.toggle('selected', i === optionIndex);
+            });
+        }
+
+        // Navigation functions
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuestions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+                
+                // Show submit button if this is the last question
+                if (currentQuestionIndex === currentQuestions.length - 1) {
+                    document.getElementById('nextBtn').style.display = 'none';
+                    document.getElementById('submitExamBtn').style.display = 'inline-flex';
+                } else {
+                    document.getElementById('nextBtn').style.display = 'inline-flex';
+                    document.getElementById('submitExamBtn').style.display = 'none';
+                }
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+                // Hide submit button when going back from last question
+                document.getElementById('nextBtn').style.display = 'inline-flex';
+                document.getElementById('submitExamBtn').style.display = 'none';
+            }
+        }
+
+        // Update progress function
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            currentQuestionEl.textContent = currentQuestionIndex + 1;
+        }
+
+        // Timer functions
+        function startTimer() {
+            updateTimerDisplay();
+            
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                // Add warning classes
+                if (timeLeft <= 300) { // 5 minutes
+                    timerEl.classList.add('danger');
+                } else if (timeLeft <= 600) { // 10 minutes
+                    timerEl.classList.add('warning');
+                }
+
+                // Auto submit when time is up
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert('Time is up! Your exam will be submitted automatically.');
+                    submitExam();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            countdownEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Calculate score function
+        function calculateScore() {
+            let correct = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === currentQuestions[index].answer) {
+                    correct++;
+                }
+            });
+            return correct;
+        }
+
+        // Add explanations to questions
+        function addExplanations() {
+            const explanations = {
+                mathematics: [
+                    "The square root of 64 is 8 because 8 × 8 = 64.",
+                    "Subtract 5 from both sides: x = 12 - 5 = 7.",
+                    "15% of 200 = 0.15 × 200 = 30.",
+                    "Area of circle = πr² = (22/7) × 7 × 7 = 154 cm².",
+                    "In y = mx + b, m is the slope, so slope = 3.",
+                    "2³ = 8, so log₂8 = 3.",
+                    "Sum of interior angles = (n-2) × 180° = 3 × 180° = 540°.",
+                    "The derivative of xⁿ is n·x^(n-1), so for x³ it's 3x².",
+                    "Using Pythagorean identity: sin²θ + cos²θ = 1, so cosθ = 4/5.",
+                    "2⁵ = 2 × 2 × 2 × 2 × 2 = 32."
+                ],
+                physics: [
+                    "Force is measured in Newtons (N) in the International System of Units.",
+                    "The speed of light in vacuum is approximately 3 × 10⁸ m/s.",
+                    "Newton's First Law is also known as the law of inertia.",
+                    "Potential energy = mgh, where m is mass, g is gravity, h is height.",
+                    "Energy can only be transformed from one form to another."
+                ],
+                chemistry: [
+                    "Water is composed of two hydrogen atoms and one oxygen atom (H₂O).",
+                    "The atomic number equals the number of protons in the nucleus.",
+                    "pH scale ranges from 0 (acidic) to 14 (basic), with 7 being neutral.",
+                    "Exothermic reactions release heat to the surroundings.",
+                    "Elements are arranged by increasing atomic number in the periodic table."
+                ],
+                english: [
+                    "The correct spelling follows the rule 'i before e except after c'.",
+                    "Nouns name people, places, things, or ideas.",
+                    "Synonyms are words with similar meanings.",
+                    "Present perfect tense uses have/has + past participle.",
+                    "Adjectives describe or modify nouns."
+                ],
+                bangla: [
+                    "'রবি' সূর্যের সমার্থক শব্দ।",
+                    "'মনীষী' অর্থ জ্ঞানী বা পণ্ডিত ব্যক্তি।",
+                    "চন্দ্রগুপ্ত মৌর্য সাম্রাজ্যের প্রতিষ্ঠাতা ছিলেন।",
+                    "'কবি' একটি বিশেষ্য পদ।",
+                    "রবীন্দ্রনাথ ঠাকুর ১৯১৩ সালে নোবেল পুরস্কার পান।"
+                ],
+                general_knowledge: [
+                    "ঢাকা বাংলাদেশের রাজধানী ও বৃহত্তম শহর।",
+                    "দোয়েল বাংলাদেশের জাতীয় পাখি।",
+                    "১৯৭১ সালের ২৬ মার্চ স্বাধীনতা ঘোষণা করা হয়।",
+                    "শাপলা বাংলাদেশের জাতীয় ফুল।",
+                    "বাংলাদেশের মুদ্রার নাম টাকা।"
+                ]
+            };
+
+            // Add explanations to questions
+            Object.keys(allQuestions).forEach(subject => {
+                allQuestions[subject].forEach((question, index) => {
+                    question.explanation = explanations[subject]?.[index % 5] || '';
+                });
+            });
+        }
+
+        // Initialize explanations
+        addExplanations();
+
+        // Submit exam function with modern UI
+        function submitExam() {
+            clearInterval(timer);
+            
+            const score = calculateScore();
+            const total = currentQuestions.length;
+            const percentage = (score / total) * 100;
+
+            // Create results HTML with modern design
+            const resultHTML = `
+                <div class="result-container">
+                    <div class="result-header text-center mb-5">
+                        <div class="trophy-container mb-3">
+                            <i class="fas fa-trophy" style="font-size: 4rem; color: var(--primary-color);"></i>
+                        </div>
+                        <h2 class="fw-bold mb-3">Exam Completed! 🎉</h2>
+                        <p class="text-muted">Here's how you performed</p>
+                    </div>
+
+
+                    <div class="score-display mb-5 text-center">
+                        <div class="position-relative d-inline-block">
+                            <svg width="180" height="180" viewBox="0 0 100 100" class="score-circle">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#e9ecef" stroke-width="8"/>
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="var(--primary-color)" 
+                                    stroke-width="8" stroke-linecap="round" stroke-dasharray="${283 * percentage / 100} 283" 
+                                    transform="rotate(-90 50 50)" class="score-circle-progress"/>
+                            </svg>
+                            <div class="score-text position-absolute top-50 start-50 translate-middle text-center">
+                                <div class="score-percentage fw-bold" style="font-size: 2.5rem;">${Math.round(percentage)}%</div>
+                                <div class="score-fraction text-muted">${score}/${total} correct</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-stats mb-5">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="stat-card correct p-3 rounded-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="stat-icon me-3">
+                                            <i class="fas fa-check-circle text-success" style="font-size: 1.5rem;"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <div class="stat-value fw-bold fs-4">${score}</div>
+                                            <div class="stat-label text-muted">Correct</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-card incorrect p-3 rounded-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="stat-icon me-3">
+                                            <i class="fas fa-times-circle text-danger" style="font-size: 1.5rem;"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <div class="stat-value fw-bold fs-4">${total - score}</div>
+                                            <div class="stat-label text-muted">Incorrect</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-card total p-3 rounded-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="stat-icon me-3">
+                                            <i class="fas fa-clipboard-list text-primary" style="font-size: 1.5rem;"></i>
+                                        </div>
+                                        <div class="stat-content">
+                                            <div class="stat-value fw-bold fs-4">${total}</div>
+                                            <div class="stat-label text-muted">Total</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-message text-center mb-5">
+                        <div class="message-bubble p-4 rounded-4 d-inline-block ${getScoreClass(percentage)}">
+                            <i class="fas ${percentage >= 70 ? 'fa-smile-beam' : percentage >= 40 ? 'fa-meh' : 'fa-sad-tear'} me-2"></i>
+                            <span class="fw-bold">${getResultMessage(percentage)}</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons d-flex justify-content-center gap-3 flex-wrap">
+                        <button class="btn btn-primary btn-lg px-4" onclick="showReviewModal()">
+                            <i class="fas fa-book-open me-2"></i>
+                            Review Answers
+                        </button>
+                        <button class="btn btn-outline-primary btn-lg px-4" onclick="restartExam()">
+                            <i class="fas fa-redo me-2"></i>
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            // Create review modal
+            const reviewModalHTML = `
+                <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="reviewModalLabel">Review Answers</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="question-nav mb-4">
+                                    <div class="d-flex flex-wrap gap-2" id="questionNav">
+                                        ${currentQuestions.map((_, index) => 
+                                            `<button class="btn btn-sm ${userAnswers[index] === currentQuestions[index].answer ? 'btn-success' : 'btn-danger'}" 
+                                                    onclick="showReviewQuestion(${index})">${index + 1}</button>`
+                                        ).join('')}
+                                    </div>
+                                </div>
+                                <div id="reviewQuestionContainer">
+                                    <!-- Review questions will be loaded here -->
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add modal to body if not exists
+            if (!document.getElementById('reviewModal')) {
+                document.body.insertAdjacentHTML('beforeend', reviewModalHTML);
+            }
+
+            // Initialize Bootstrap modal
+            const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
+            
+            // Show first question in review
+            window.showReviewQuestion = function(index) {
+                const question = currentQuestions[index];
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.answer;
+                
+                const optionsHTML = question.options.map((option, i) => {
+                    let optionClass = '';
+                    if (i === question.answer) {
+                        optionClass = 'bg-success bg-opacity-10 text-success border-success';
+                    } else if (i === userAnswer && !isCorrect) {
+                        optionClass = 'bg-danger bg-opacity-10 text-danger border-danger';
+                    }
+                    return `
+                        <div class="review-option ${optionClass} p-3 mb-2 rounded border">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" ${userAnswer === i ? 'checked' : ''} disabled>
+                                <label class="form-check-label w-100">
+                                    ${option}
+                                </label>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                const reviewHTML = `
+                    <div class="review-question">
+                        <h5 class="mb-4">Question ${index + 1}: ${question.question}</h5>
+                        <div class="options-container mb-4">
+                            ${optionsHTML}
+                        </div>
+                        <div class="explanation-container p-3 rounded ${isCorrect ? 'bg-success bg-opacity-10' : 'bg-danger bg-opacity-10'}">
+                            <h6><i class="fas fa-lightbulb me-2"></i>Explanation:</h6>
+                            <p class="mb-0">${question.explanation || 'No explanation available.'}</p>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('reviewQuestionContainer').innerHTML = reviewHTML;
+                
+                // Update active button in navigation
+                document.querySelectorAll('#questionNav button').forEach((btn, i) => {
+                    btn.classList.remove('active');
+                    if (i === index) btn.classList.add('active');
+                });
+            };
+
+            // Show modal function
+            window.showReviewModal = function() {
+                showReviewQuestion(0);
+                reviewModal.show();
+            };
+
+            // Update the result container
+            resultContainer.innerHTML = resultHTML;
+            resultContainer.style.display = 'block';
+            examContainer.style.display = 'none';
+        }
+        
+
+        // Helper functions for results
+        function getScoreClass(percentage) {
+            if (percentage >= 80) return 'bg-success';
+            if (percentage >= 60) return 'bg-warning';
+            return 'bg-danger';
+        }
+
+        function getResultMessage(percentage) {
+            if (percentage >= 90) return '🎉 Excellent! Outstanding performance!';
+            if (percentage >= 80) return '👏 Very Good! You have a strong understanding.';
+            if (percentage >= 70) return '👍 Good! You\'re doing well.';
+            if (percentage >= 60) return '📚 Fair! Consider reviewing some topics.';
+            if (percentage >= 50) return '💪 Keep practicing! You can improve.';
+            return '📖 Study more and try again. Don\'t give up!';
+        }
+
+        // Restart exam function
+        function restartExam() {
+            // Reset all variables
+            currentQuestions = [];
+            userAnswers = [];
+            currentQuestionIndex = 0;
+            timeLeft = 30 * 60;
+            selectedSubject = '';
+            
+            // Clear timer
+            if (timer) clearInterval(timer);
+            
+            // Reset timer display classes
+            if (timerEl) timerEl.classList.remove('warning', 'danger');
+            
+            // Reset UI
+            if (resultContainer) resultContainer.style.display = 'none';
+            if (examContainer) examContainer.style.display = 'none';
+            if (subjectSelection) subjectSelection.style.display = 'block';
+            
+            // Reset subject selection
+            document.querySelectorAll('.subject-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            if (startExamBtn) {
+                startExamBtn.disabled = true;
+                startExamBtn.innerHTML = '<i class="fas fa-play"></i> Start Exam (10 Questions • 30 Minutes)';
+            }
+            
+            // Scroll to top of the page
+            window.scrollTo(0, 0);
+        }
+
+        // View answers function with modern design
+        function viewAnswers() {
+            let answersHTML = `
+                <div class="answers-container">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5">
+                        <div class="text-center text-md-start mb-3 mb-md-0">
+                            <h2 class="mb-1">${subjectNames[selectedSubject]}</h2>
+                            <p class="text-muted">Review your answers and learn from your mistakes</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-primary" onclick="submitExam()">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Results
+                            </button>
+                            <button class="btn btn-primary" onclick="restartExam()">
+                                <i class="fas fa-redo me-2"></i>Try Again
+                            </button>
+                        </div>
+                    </div>
+                    <div class="answers-list">
+            `;
+
+            currentQuestions.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const correctAnswer = question.answer;
+                const isCorrect = userAnswer === correctAnswer;
+                const userAnswerText = userAnswer !== null ? question.options[userAnswer] : 'Not answered';
+                const correctAnswerText = question.options[correctAnswer];
+
+                answersHTML += `
+                    <div class="answer-item ${isCorrect ? 'correct' : 'incorrect'} mb-4" 
+                         style="
+                            background: white;
+                            border-radius: 15px;
+                            overflow: hidden;
+                            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+                            transition: all 0.3s ease;
+                            border-left: 4px solid ${isCorrect ? '#10b981' : '#ef4444'};
+                         ">
+                        <div class="answer-header p-4" 
+                             style="
+                                background: ${isCorrect ? 'rgba(16, 185, 129, 0.05)' : 'rgba(239, 68, 68, 0.05)'};
+                                border-bottom: 1px solid ${isCorrect ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'};
+                             ">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <span class="question-number me-3" 
+                                          style="
+                                            background: ${isCorrect ? '#10b98115' : '#ef444415'};
+                                            color: ${isCorrect ? '#10b981' : '#ef4444'};
+                                            width: 36px;
+                                            height: 36px;
+                                            border-radius: 50%;
+                                            display: inline-flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            font-weight: 700;
+                                          ">
+                                        ${index + 1}
+                                    </span>
+                                    <h5 class="mb-0" style="color: #2d3748;">${question.question}</h5>
+                                </div>
+                                <span class="badge ${isCorrect ? 'bg-success' : 'bg-danger'} px-3 py-2">
+                                    <i class="fas ${isCorrect ? 'fa-check' : 'fa-times'} me-1"></i>
+                                    ${isCorrect ? 'Correct' : 'Incorrect'}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="answer-body p-4">
+                            <div class="row">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <div class="answer-section">
+                                        <h6 class="text-uppercase text-muted mb-3">
+                                            <i class="fas fa-user-check me-2"></i>Your Answer
+                                        </h6>
+                                        <div class="p-3 rounded ${isCorrect ? 'bg-success-soft' : 'bg-danger-soft'}" 
+                                             style="background: ${isCorrect ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'};
+                                                    border-left: 3px solid ${isCorrect ? '#10b981' : '#ef4444'};
+                                                    color: ${isCorrect ? '#065f46' : '#991b1b'};">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fas ${isCorrect ? 'fa-check-circle text-success' : 'fa-times-circle text-danger'} me-2"></i>
+                                                <span>${userAnswerText}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                ${!isCorrect ? `
+                                    <div class="col-md-6">
+                                        <div class="answer-section">
+                                            <h6 class="text-uppercase text-muted mb-3">
+                                                <i class="fas fa-check-circle me-2"></i>Correct Answer
+                                            </h6>
+                                            <div class="p-3 rounded" 
+                                                 style="background: rgba(16, 185, 129, 0.1);
+                                                        border-left: 3px solid #10b981;
+                                                        color: #065f46;">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                                    <span>${correctAnswerText}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>` : ''}
+                            </div>
+                            ${question.explanation ? `
+                                <div class="mt-4">
+                                    <h6 class="text-uppercase text-muted mb-3">
+                                        <i class="fas fa-lightbulb me-2" style="color: #f59e0b;"></i>Explanation
+                                    </h6>
+                                    <div class="p-4 rounded" 
+                                         style="background: #f8f9fa;
+                                                border-left: 3px solid #f59e0b;
+                                                color: #4a5568;">
+                                        ${question.explanation}
+                                    </div>
+                                </div>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            answersHTML += `
+                    </div>
+                </div>
+                <style>
+                    .answer-item {
+                        transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    }
+                    .answer-item:hover {
+                        transform: translateY(-3px);
+                        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+                    }
+                    .bg-success-soft {
+                        background-color: rgba(16, 185, 129, 0.1) !important;
+                    }
+                    .bg-danger-soft {
+                        background-color: rgba(239, 68, 68, 0.1) !important;
+                    }
+                </style>
+            `;
+            
+            resultContainer.innerHTML = answersHTML;
+            
+            // Add smooth scrolling to each question
+            document.querySelectorAll('.answer-item').forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                // Staggered animation
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        }
+    </script>
+</body>
+</html>

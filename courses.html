@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Coding Hub : Courses</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/icon.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+   <!-- Navbar Start -->
+   <nav class="navbar navbar-expand-lg navbar-light bg-white shadow sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <img src="img/icon.png" alt="" height="50" class="d-inline-block align-text-top me-2">
+            <span class="fw-bold" style="font-size: 25px;">Coding<span style="color: #fb873f;">Hub</span></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="courses.html">Courses</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Pages
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <li><a class="dropdown-item" href="team.html">Our Team</a></li>
+                        <li><a class="dropdown-item" href="testimonial.html">Testimonial</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="admissionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Admission
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="admissionDropdown">
+                        <li><a class="dropdown-item" href="polytechnic-admission.html">Polytechnic Admission</a></li>
+                        <li><a class="dropdown-item" href="#">Other Admissions</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html"><i class="fa fa-user"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin-login.html" title="Admin Dashboard"><i class="fas fa-columns"></i></a>
+                </li>
+                <li class="nav-item">
+                    <div id="google_translate_element" class="nav-link"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Navbar End -->
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Courses</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Courses</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+
+    <!-- Categories Start -->
+    <div class="container-xxl py-5 category">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center px-3">Categories</h6>
+                <h1 class="mb-5" style="color: #fb873f;">Popular Topics to Explore</h1>
+            </div>
+            <div class="row g-2 m-2">
+                <div class="col-lg-3 col-md-6  text-center">
+                    <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
+
+                        <img src="img/cat1.png" class="img-fluid" alt="categories"></i>
+
+                        <h5 class="my-2">
+                            <a href="#" class="text-center">Microsoft Excel</a>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6  text-center">
+                    <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
+
+                        <img src="img/cat2.png" class="img-fluid" alt="categories"></i>
+
+                        <h5 class="my-2">
+                            <a href="#" class="text-center"> AWS</a>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6  text-center">
+                    <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
+
+                        <img src="img/cat3.png" class="img-fluid" alt="categories"></i>
+
+                        <h5 class="my-2">
+                            <a href="#" class="text-center">Python</a>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6  text-center">
+                    <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
+
+                        <img src="img/cat4.png" class="img-fluid" alt="categories"></i>
+
+                        <h5 class="my-2">
+                            <a href="#" class="text-center">Java</a>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6  text-center">
+                    <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
+
+                        <img src="img/cat5.png" class="img-fluid" alt="categories"></i>
+
+                        <h5 class="my-2">
+                            <a href="#" class="text-center">Web Design</a>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6  text-center">
+                    <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
+
+                        <img src="img/cat6.png" class="img-fluid" alt="categories"></i>
+
+                        <h5 class="my-2">
+                            <a href="#" class="text-center">Web Development</a>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6  text-center">
+                    <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
+
+                        <img src="img/cat7.png" class="img-fluid" alt="categories"></i>
+
+                        <h5 class="my-2">
+                            <a href="#" class="text-center">MySQL</a>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6  text-center">
+                    <div class="content shadow p-3 mb-2 wow fadeInUp" data-wow-delay="0.3s">
+
+                        <img src="img/cat8.png" class="img-fluid" alt="categories"></i>
+
+                        <h5 class="my-2">
+                            <a href="#" class="text-center">UI/UX Design</a>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Categories End -->
+
+
+
+    <!-- Courses Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center px-3">Popular Courses</h6>
+                <h1 class="mb-5" style="color: #fb873f;">Explore new and trending free online courses</h1>
+            </div>
+            <div class="row g-4 py-2">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-1.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#fb873f;"
+                                class="px-2 py-1 fw-bold text-uppercase">FREE</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1"><a href="single.html" class="text-dark">HTML Course for Beginners </a></h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-star text-warning me-2"></i>
+                                4.55</small>
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-user-graduate me-2"></i>5.8L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-2"><i
+                                    class="fa fa-user me-2"></i>Beginner</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>2.0
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  0</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="HTML Course for Beginners" data-course-price="0" data-course-duration="2.0" data-course-level="Beginner">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-2.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#0ed44c;"
+                                class="px-2 py-1 fw-bold text-uppercase">PAID</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">Front End Development-CSS
+                            </h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-star text-warning me-2"></i>
+                                4.55</small>
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-user-graduate me-2"></i>5.2L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-2"><i
+                                    class="fa fa-user me-2"></i>Intermediate</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>4.0
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  199</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="Front End Development-CSS" data-course-price="199" data-course-duration="4.0" data-course-level="Intermediate">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-3.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#fb873f;"
+                                class="px-2 py-1 fw-bold text-uppercase">FREE</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">Introduction to JavaScript
+                            </h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-star text-warning me-2"></i>
+                                4.46</small>
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-user-graduate me-2"></i>76L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-2"><i
+                                    class="fa fa-user me-2"></i>Beginner</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>2.5
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  0</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="Introduction to JavaScript" data-course-price="0" data-course-duration="2.5" data-course-level="Beginner">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-4.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#0ed44c;"
+                                class="px-2 py-1 fw-bold text-uppercase">PAID</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">Python Programming
+                            </h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-star text-warning me-2"></i>
+                                3.54</small>
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-user-graduate me-2"></i>3.3L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-2"><i
+                                    class="fa fa-user me-2"></i>Beginner</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>3.0
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  299</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="Python Programming" data-course-price="299" data-course-duration="3.0" data-course-level="Beginner">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-5.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#fb873f;"
+                                class="px-2 py-1 fw-bold text-uppercase">FREE</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">SQL for Data Science
+                            </h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-1"><i class="fa fa-star text-warning me-2"></i>
+                                4.54</small>
+                            <small class="flex-fill text-center py-1 px-1"><i class="fa fa-user-graduate me-2"></i>1.3L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-1"><i
+                                    class="fa fa-user me-2"></i>Intermediate</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>5.0
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  0</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="SQL for Data Science" data-course-price="0" data-course-duration="5.0" data-course-level="Intermediate">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-6.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#fb873f;"
+                                class="px-2 py-1 fw-bold text-uppercase">FREE</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">ChatGPT for Beginners
+                            </h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-star text-warning me-2"></i>
+                                3.55</small>
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-user-graduate me-2"></i>3.5L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-2"><i
+                                    class="fa fa-user me-2"></i>Beginner</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>4.5
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  0</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="ChatGPT for Beginners" data-course-price="0" data-course-duration="4.5" data-course-level="Beginner">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-7.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#fb873f;"
+                                class="px-2 py-1 fw-bold text-uppercase">FREE</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">AWS for Beginners
+                            </h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-star text-warning me-2"></i>
+                                4.53</small>
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-user-graduate me-2"></i>1L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-2"><i
+                                    class="fa fa-user me-2"></i>Beginner</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>3.0
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  0</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="AWS for Beginners" data-course-price="0" data-course-duration="3.0" data-course-level="Beginner">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-8.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#0ed44c;"
+                                class="px-2 py-1 fw-bold text-uppercase">PAID</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">Microsoft Azure Essentials
+                            </h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-1"><i class="fa fa-star text-warning me-2"></i>
+                                4.64</small>
+                            <small class="flex-fill text-center py-1 px-1"><i class="fa fa-user-graduate me-2"></i>4.4L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-1"><i
+                                    class="fa fa-user me-2"></i>Intermediate</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>3.5
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  149</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="Microsoft Azure Essentials" data-course-price="149" data-course-duration="3.5" data-course-level="Intermediate">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-9.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#fb873f;"
+                                class="px-2 py-1 fw-bold text-uppercase">FREE</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">Introduction to MS Excel</h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-star text-warning me-2"></i>
+                                4.6</small>
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-user-graduate me-2"></i>4.2L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-2"><i
+                                    class="fa fa-user me-2"></i>Beginner</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>3.5
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  0</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="HTML Course for Beginners" data-course-price="0" data-course-duration="2.0" data-course-level="Beginner">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-10.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#0ed44c;"
+                                class="px-2 py-1 fw-bold text-uppercase">PAID</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">Statistics For Data Science
+                            
+                                
+                            </h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-1"><i class="fa fa-star text-warning me-2"></i>
+                                4.55</small>
+                            <small class="flex-fill text-center py-1 px-1"><i class="fa fa-user-graduate me-2"></i>5.3L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-1"><i
+                                    class="fa fa-user me-2"></i>Intermediate</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>2.5
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  299</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="Statistics For Data Science" data-course-price="299" data-course-duration="2.5" data-course-level="Intermediate">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-11.jpg" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#fb873f;"
+                                class="px-2 py-1 fw-bold text-uppercase">FREE</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">Java Programming
+                            </h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-star text-warning me-2"></i>
+                                4.45</small>
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-user-graduate me-2"></i>5L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-2"><i
+                                    class="fa fa-user me-2"></i>Beginner</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>2.0
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  0</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="HTML Course for Beginners" data-course-price="0" data-course-duration="2.0" data-course-level="Beginner">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item shadow">
+                        <div class="position-relative overflow-hidden text-light image">
+                            <img class="img-fluid" src="img/course-12.png" alt="">
+                            <div style="position:absolute;top: 15px;left: 16px; font-size:12px; border-radius:3px; background-color:#fb873f;"
+                                class="px-2 py-1 fw-bold text-uppercase">FREE</div>
+
+                        </div>
+                        <div class="p-2 pb-0">
+
+                            <h5 class="mb-1">C for Beginners
+                            </h5>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-star text-warning me-2"></i>
+                                4.5</small>
+                            <small class="flex-fill text-center py-1 px-2"><i class="fa fa-user-graduate me-2"></i>1.1L+
+                                Learners
+                            </small>
+                            <small class="flex-fill text-center py-1 px-2"><i
+                                    class="fa fa-user me-2"></i>Beginner</small>
+                        </div>
+                        <div class="d-flex">
+                            <small class="flex-fill text-left p-2 px-2"><i class="fa fa-clock me-2"></i>1.5
+                                Hrs</small>
+                            <small class="py-1 px-2 fw-bold fs-6 text-center">৳  0</small>
+                            <small class=" text-primary py-1 px-2 fw-bold fs-6" style="float:right;"><a href="#" class="enroll-btn" data-course-title="HTML Course for Beginners" data-course-price="0" data-course-duration="2.0" data-course-level="Beginner">Enroll Now </a><i class="fa fa-chevron-right me-2 fs-10"></i></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container text-center">
+        <a class="btn text-light py-3 px-5 mt-2 mb-5" href="courses.html">All Courses</a>
+    </div>
+    <!-- Courses End -->
+
+
+    <style>
+        /* Animation styles */
+        .modal.fade .modal-dialog {
+            transform: scale(0.7);
+            transition: all 0.3s ease-in-out;
+            opacity: 0;
+        }
+        .modal.show .modal-dialog {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .course-details ul li {
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideIn 0.5s ease forwards;
+        }
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .payment-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        .payment-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .modal-content {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .course-details ul li:nth-child(1) { animation-delay: 0.1s; }
+        .course-details ul li:nth-child(2) { animation-delay: 0.2s; }
+        .course-details ul li:nth-child(3) { animation-delay: 0.3s; }
+        .course-details ul li:nth-child(4) { animation-delay: 0.4s; }
+        
+        #modalCourseTitle {
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: slideDown 0.5s ease 0.2s forwards;
+        }
+        @keyframes slideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal.show .btn-primary {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+
+    <!-- Course Enrollment Modal -->
+    <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="courseModalLabel">Course Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 id="modalCourseTitle"></h4>
+                            <p><strong>Duration:</strong> <span id="modalCourseDuration"></span> Hours</p>
+                            <p><strong>Level:</strong> <span id="modalCourseLevel"></span></p>
+                            <p><strong>Price:</strong> ৳ <span id="modalCoursePrice"></span></p>
+                            <div class="course-details mt-3">
+                                <h5>Course Overview</h5>
+                                <ul>
+                                    <li>Comprehensive curriculum</li>
+                                    <li>Hands-on projects</li>
+                                    <li>24/7 Support</li>
+                                    <li>Certificate upon completion</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="payment-section">
+                                <h5>Payment Method</h5>
+                                <form id="paymentForm" class="mt-3">
+                                    <div class="mb-3">
+                                        <div class="btn-group w-100" role="group">
+                                            <input type="radio" class="btn-check" name="paymentMethod" id="cardPayment" value="card" checked>
+                                            <label class="btn btn-outline-primary" for="cardPayment">Card Payment</label>
+                                            <input type="radio" class="btn-check" name="paymentMethod" id="mobilePayment" value="mobile">
+                                            <label class="btn btn-outline-primary" for="mobilePayment">Mobile Banking</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card Payment Section -->
+                                    <div id="cardSection">
+                                        <div class="mb-3">
+                                            <label class="form-label">Card Number</label>
+                                            <input type="text" class="form-control" name="cardNumber" placeholder="1234 5678 9012 3456">
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Expiry Date</label>
+                                                <input type="text" class="form-control" name="expiryDate" placeholder="MM/YY">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">CVV</label>
+                                                <input type="text" class="form-control" name="cvv" placeholder="123">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Card Holder Name</label>
+                                            <input type="text" class="form-control" name="cardName" placeholder="John Doe">
+                                        </div>
+                                    </div>
+
+                                    <!-- Mobile Banking Section -->
+                                    <div id="mobileSection" style="display: none;">
+                                        <div class="mb-3">
+                                            <label class="form-label">Select Mobile Banking</label>
+                                            <select class="form-select" name="mobileBank">
+                                                <option value="bkash">bKash</option>
+                                                <option value="nagad">Nagad</option>
+                                                <option value="rocket">Rocket</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Mobile Number</label>
+                                            <input type="text" class="form-control" name="mobileNumber" placeholder="01XXXXXXXXX">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Transaction ID</label>
+                                            <input type="text" class="form-control" name="transactionId" placeholder="Enter Transaction ID">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="enrollButton">Confirm Enrollment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-white mb-3">Quick Link</h4>
+                    <p><a class="text-light" href="about.html">About Us</a></p>
+                    <p><a class="text-light" href="contact.html">Contact Us</a></p>
+                    <p><a class="text-light" href="">Privacy Policy</a></p>
+                    <p><a class="text-light" href="">Terms & Condition</a></p>
+                    <p><a class="text-light" href="">FAQs & Help</a></p>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Chotobon Gram, Chandrima, Rajshahi</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+88 01710972729</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>codinghub@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="text-white mb-3">Subscribe to our Newsletter</h4>
+                    <p>Subscribe now and join our growing community of learners committed to lifelong education! </p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <form action="#">
+                            <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="email"
+                                placeholder="Your email" required>
+                            <button type="submit"
+                                class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"><a
+                                href="mailto:nafizcst@gmail.com">Subscribe</a></button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="index.html">Coding Hub</a>, All Right Reserved.
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <script>
+        // Handle course enrollment button click
+        document.querySelectorAll('.enroll-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const courseTitle = this.dataset.courseTitle;
+                const coursePrice = this.dataset.coursePrice;
+                const courseDuration = this.dataset.courseDuration;
+                const courseLevel = this.dataset.courseLevel;
+
+                document.getElementById('modalCourseTitle').textContent = courseTitle;
+                document.getElementById('modalCoursePrice').textContent = coursePrice;
+                document.getElementById('modalCourseDuration').textContent = courseDuration;
+                document.getElementById('modalCourseLevel').textContent = courseLevel;
+
+                // Show/hide payment section based on price
+                if (parseInt(coursePrice) === 0) {
+                    document.querySelector('.payment-section').style.display = 'none';
+                } else {
+                    document.querySelector('.payment-section').style.display = 'block';
+                }
+
+                const modal = new bootstrap.Modal(document.getElementById('courseModal'));
+                modal.show();
+
+                // Reset form when modal is hidden
+                document.getElementById('courseModal').addEventListener('hidden.bs.modal', function () {
+                    document.getElementById('paymentForm').reset();
+                    document.getElementById('cardSection').style.display = 'block';
+                    document.getElementById('mobileSection').style.display = 'none';
+                }, { once: true });
+            });
+        });
+
+        // Payment Method Toggle
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const cardSection = document.getElementById('cardSection');
+                const mobileSection = document.getElementById('mobileSection');
+                if (this.value === 'card') {
+                    cardSection.style.display = 'block';
+                    mobileSection.style.display = 'none';
+                } else {
+                    cardSection.style.display = 'none';
+                    mobileSection.style.display = 'block';
+                }
+            });
+        });
+
+        // Handle enrollment confirmation
+        document.getElementById('enrollButton').addEventListener('click', function() {
+            const coursePrice = parseInt(document.getElementById('modalCoursePrice').textContent);
+            if (coursePrice === 0) {
+                alert('Enrollment successful! You can now access the course.');
+                const modal = bootstrap.Modal.getInstance(document.getElementById('courseModal'));
+                modal.hide();
+            } else {
+                // For paid courses, trigger payment form validation and submission
+                document.getElementById('paymentForm').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+            }
+        });
+
+        // Payment Form Validation and Processing
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+            let isValid = true;
+            let message = '';
+
+            if (paymentMethod === 'card') {
+                const cardNumber = document.querySelector('input[name="cardNumber"]').value.trim();
+                const expiryDate = document.querySelector('input[name="expiryDate"]').value.trim();
+                const cvv = document.querySelector('input[name="cvv"]').value.trim();
+                const cardName = document.querySelector('input[name="cardName"]').value.trim();
+
+                if (!cardNumber || !expiryDate || !cvv || !cardName) {
+                    isValid = false;
+                    message = 'Please fill in all card details';
+                }
+            } else {
+                const mobileNumber = document.querySelector('input[name="mobileNumber"]').value.trim();
+                const transactionId = document.querySelector('input[name="transactionId"]').value.trim();
+
+                if (!mobileNumber || !transactionId) {
+                    isValid = false;
+                    message = 'Please fill in all mobile banking details';
+                }
+            }
+
+            if (!isValid) {
+                alert(message);
+                return;
+            }
+
+            // Simulate payment processing
+            alert('Payment successful! You are now enrolled in the course.');
+            const modal = bootstrap.Modal.getInstance(document.getElementById('courseModal'));
+            modal.hide();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatMingle - AI Random Stranger Chat</title>
+    <link href="img/icon.png" rel="icon">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .chat-section {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .partner-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .partner-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .chat-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-primary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+            transform: translateY(-1px);
+        }
+
+        .messages-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            position: relative;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        .message.own {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .message.other {
+            align-self: flex-start;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .message.system {
+            align-self: center;
+            background: rgba(255, 193, 7, 0.2);
+            color: #333;
+            font-style: italic;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .message-input-area {
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        #messageInput:focus {
+            border-color: #4CAF50;
+        }
+
+        .send-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .ai-panel {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ai-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .ai-section h3 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .suggestion-item {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+            font-size: 0.9rem;
+        }
+
+        .suggestion-item:hover {
+            background: #4CAF50;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .translation-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #ccc;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #4CAF50;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(26px);
+        }
+
+        .waiting-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .ai-panel {
+                width: 100%;
+                order: -1;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            🌐 ChatMingle
+        </div>
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span id="onlineCount">1,247 users online</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="chat-section">
+            <div class="chat-header">
+                <div class="partner-info">
+                    <div class="partner-avatar" id="partnerAvatar">👤</div>
+                    <div>
+                        <div id="partnerName">Finding a partner...</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;" id="partnerStatus">Please wait...</div>
+                    </div>
+                </div>
+                <div class="chat-controls">
+                    <button class="btn btn-primary" id="newChatBtn">🔄 New Chat</button>
+                    <button class="btn btn-danger" id="disconnectBtn">❌ Disconnect</button>
+                </div>
+            </div>
+
+            <div class="messages-container" id="messagesContainer">
+                <div class="message system">
+                    Welcome to ChatMingle! We're connecting you with a random stranger...
+                </div>
+            </div>
+
+            <div class="waiting-screen" id="waitingScreen">
+                <div class="spinner"></div>
+                <h3>Finding your chat partner...</h3>
+                <p>Please wait while we connect you with someone interesting!</p>
+            </div>
+
+            <div class="message-input-area">
+                <div class="input-container">
+                    <input type="text" id="messageInput" placeholder="Type your message..." disabled>
+                    <button class="send-btn" id="sendBtn" disabled>📤</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-panel">
+            <div class="ai-section">
+                <h3>🤖 AI Assistant</h3>
+                <div class="translation-toggle">
+                    <span>Auto-translate</span>
+                    <div class="toggle-switch" id="translationToggle">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <div style="font-size: 0.8rem; color: #666;">
+                    Detected: English → Spanish
+                </div>
+            </div>
+
+            <div class="ai-section">
+                <h3>💡 Conversation Starters</h3>
+                <div id="suggestions">
+                    <div class="suggestion-item">What's your favorite hobby?</div>
+                    <div class="suggestion-item">Where are you from?</div>
+                    <div class="suggestion-item">What's the weather like there?</div>
+                    <div class="suggestion-item">Do you have any pets?</div>
+                    <div class="suggestion-item">What music do you like?</div>
+                </div>
+            </div>
+
+            <div class="ai-section">
+                <h3>🛡️ AI Moderation</h3>
+                <div style="font-size: 0.9rem; color: #666;">
+                    <div style="margin-bottom: 8px;">✅ Safe conversation detected</div>
+                    <div style="margin-bottom: 8px;">🌐 Auto-translation active</div>
+                    <div>📊 Sentiment: Positive</div>
+                </div>
+            </div>
+
+            <div class="ai-section">
+                <h3>📈 Chat Stats</h3>
+                <div style="font-size: 0.9rem; color: #666;">
+                    <div>Messages sent: <span id="messageCount">0</span></div>
+                    <div>Chat duration: <span id="chatDuration">0:00</span></div>
+                    <div>Connection quality: <span style="color: #4CAF50;">Excellent</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class ChatMingle {
+            constructor() {
+                this.isConnected = false;
+                this.messageCount = 0;
+                this.chatStartTime = null;
+                this.currentPartner = null;
+                this.translationEnabled = false;
+                this.chatHistory = [];
+                
+                this.initializeElements();
+                this.setupEventListeners();
+                this.simulateConnection();
+                this.startChatTimer();
+                
+                // Simulated partners database
+                this.partners = [
+                    { name: "Alex", avatar: "😊", country: "Canada", interests: ["music", "travel"] },
+                    { name: "Maria", avatar: "🌸", country: "Spain", interests: ["art", "cooking"] },
+                    { name: "Kai", avatar: "🎮", country: "Japan", interests: ["gaming", "anime"] },
+                    { name: "Emma", avatar: "📚", country: "UK", interests: ["books", "movies"] },
+                    { name: "Diego", avatar: "⚽", country: "Brazil", interests: ["sports", "music"] },
+                    { name: "Sophie", avatar: "🎨", country: "France", interests: ["art", "fashion"] },
+                    { name: "Liam", avatar: "🏔️", country: "Australia", interests: ["hiking", "photography"] }
+                ];
+            }
+
+            initializeElements() {
+                this.messagesContainer = document.getElementById('messagesContainer');
+                this.messageInput = document.getElementById('messageInput');
+                this.sendBtn = document.getElementById('sendBtn');
+                this.waitingScreen = document.getElementById('waitingScreen');
+                this.newChatBtn = document.getElementById('newChatBtn');
+                this.disconnectBtn = document.getElementById('disconnectBtn');
+                this.partnerName = document.getElementById('partnerName');
+                this.partnerStatus = document.getElementById('partnerStatus');
+                this.partnerAvatar = document.getElementById('partnerAvatar');
+                this.translationToggle = document.getElementById('translationToggle');
+                this.messageCountEl = document.getElementById('messageCount');
+                this.chatDurationEl = document.getElementById('chatDuration');
+                this.onlineCountEl = document.getElementById('onlineCount');
+            }
+
+            setupEventListeners() {
+                this.sendBtn.addEventListener('click', () => this.sendMessage());
+                this.messageInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.sendMessage();
+                });
+                
+                this.newChatBtn.addEventListener('click', () => this.startNewChat());
+                this.disconnectBtn.addEventListener('click', () => this.disconnect());
+                
+                this.translationToggle.addEventListener('click', () => this.toggleTranslation());
+                
+                // Suggestion clicks
+                document.querySelectorAll('.suggestion-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        this.messageInput.value = item.textContent;
+                        this.messageInput.focus();
+                    });
+                });
+
+                // Update online count periodically
+                setInterval(() => this.updateOnlineCount(), 5000);
+            }
+
+            async simulateConnection() {
+                await this.delay(2000 + Math.random() * 3000);
+                this.connectToPartner();
+            }
+
+            connectToPartner() {
+                this.currentPartner = this.partners[Math.floor(Math.random() * this.partners.length)];
+                this.isConnected = true;
+                this.chatStartTime = Date.now();
+                
+                this.waitingScreen.classList.add('hidden');
+                this.messageInput.disabled = false;
+                this.sendBtn.disabled = false;
+                
+                this.partnerName.textContent = this.currentPartner.name;
+                this.partnerStatus.textContent = `From ${this.currentPartner.country} • Online`;
+                this.partnerAvatar.textContent = this.currentPartner.avatar;
+                
+                this.addSystemMessage(`Connected with ${this.currentPartner.name} from ${this.currentPartner.country}!`);
+                this.addSystemMessage("Say hello and start chatting! 👋");
+                
+                // Generate AI conversation suggestions based on partner
+                this.generatePersonalizedSuggestions();
+                
+                // Simulate partner messages
+                setTimeout(() => this.simulatePartnerMessage(), 3000 + Math.random() * 5000);
+            }
+
+            generatePersonalizedSuggestions() {
+                const suggestions = document.getElementById('suggestions');
+                const interests = this.currentPartner.interests;
+                
+                const personalizedSuggestions = [
+                    `Hi! I see you're from ${this.currentPartner.country}. How's the weather there?`,
+                    `Do you enjoy ${interests[0]}? I'm interested in that too!`,
+                    `What's it like living in ${this.currentPartner.country}?`,
+                    `I heard ${this.currentPartner.country} is great for ${interests[1]}. Is that true?`,
+                    "What's your favorite thing about your city?"
+                ];
+                
+                suggestions.innerHTML = personalizedSuggestions.map(suggestion => 
+                    `<div class="suggestion-item">${suggestion}</div>`
+                ).join('');
+                
+                // Re-add event listeners
+                suggestions.querySelectorAll('.suggestion-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        this.messageInput.value = item.textContent;
+                        this.messageInput.focus();
+                    });
+                });
+            }
+
+            sendMessage() {
+                const message = this.messageInput.value.trim();
+                if (!message || !this.isConnected) return;
+                
+                this.addMessage(message, 'own');
+                this.messageInput.value = '';
+                this.messageCount++;
+                this.messageCountEl.textContent = this.messageCount;
+                
+                // Simulate partner response
+                setTimeout(() => this.simulatePartnerResponse(message), 1000 + Math.random() * 3000);
+            }
+
+            simulatePartnerMessage() {
+                if (!this.isConnected) return;
+                
+                const greetings = [
+                    "Hey there! 👋",
+                    "Hello! Nice to meet you!",
+                    "Hi! How are you doing?",
+                    "Greetings from " + this.currentPartner.country + "!",
+                    "Hey! What's up?"
+                ];
+                
+                const message = greetings[Math.floor(Math.random() * greetings.length)];
+                this.addMessage(message, 'other');
+            }
+
+            simulatePartnerResponse(userMessage) {
+                if (!this.isConnected) return;
+                
+                const responses = this.generateContextualResponse(userMessage);
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                
+                setTimeout(() => {
+                    this.addMessage(response, 'other');
+                    
+                    // Sometimes send follow-up questions
+                    if (Math.random() > 0.7) {
+                        setTimeout(() => {
+                            const followUp = this.generateFollowUpQuestion();
+                            this.addMessage(followUp, 'other');
+                        }, 2000 + Math.random() * 3000);
+                    }
+                }, 500 + Math.random() * 1500);
+            }
+
+            generateContextualResponse(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+                    return [
+                        "Hello! Great to meet you!",
+                        "Hi there! How's your day going?",
+                        "Hey! Nice to chat with you! 😊"
+                    ];
+                }
+                
+                if (lowerMessage.includes('weather')) {
+                    return [
+                        `It's pretty nice here in ${this.currentPartner.country}! What about where you are?`,
+                        "The weather's been great lately! Perfect for going outside.",
+                        "It's a bit cloudy today, but still nice. How's the weather there?"
+                    ];
+                }
+                
+                if (lowerMessage.includes('hobby') || lowerMessage.includes('interest')) {
+                    const interest = this.currentPartner.interests[0];
+                    return [
+                        `I love ${interest}! It's my main passion. What about you?`,
+                        `My main hobby is ${interest}. I spend a lot of time on it!`,
+                        `I'm really into ${interest} and ${this.currentPartner.interests[1]}. What do you like to do?`
+                    ];
+                }
+                
+                if (lowerMessage.includes('country') || lowerMessage.includes('from')) {
+                    return [
+                        `${this.currentPartner.country} is amazing! I love it here. Where are you from?`,
+                        `Living in ${this.currentPartner.country} has been great! What's your country like?`,
+                        `${this.currentPartner.country} is beautiful. Have you ever been here?`
+                    ];
+                }
+                
+                // Generic responses
+                return [
+                    "That's interesting! Tell me more about that.",
+                    "Cool! I'd love to know more about your perspective on that.",
+                    "Really? That sounds fascinating!",
+                    "I see! That's quite different from my experience.",
+                    "Wow, that's awesome! 😄",
+                    "That's really cool! Thanks for sharing that with me."
+                ];
+            }
+
+            generateFollowUpQuestion() {
+                const questions = [
+                    "What's your favorite thing to do in your free time?",
+                    "Do you have any interesting hobbies?",
+                    "What's the most exciting thing that happened to you recently?",
+                    "If you could travel anywhere, where would you go?",
+                    "What kind of music do you listen to?",
+                    "Do you prefer movies or TV shows?",
+                    "What's your favorite food?",
+                    "Are you a morning person or a night owl?"
+                ];
+                
+                return questions[Math.floor(Math.random() * questions.length)];
+            }
+
+            addMessage(text, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${type}`;
+                
+                const messageText = this.translationEnabled && type === 'other' 
+                    ? this.simulateTranslation(text) 
+                    : text;
+                
+                messageDiv.innerHTML = `
+                    <div>${messageText}</div>
+                    ${this.translationEnabled && type === 'other' ? 
+                        `<div style="font-size: 0.8rem; opacity: 0.7; margin-top: 4px;">Original: ${text}</div>` 
+                        : ''
+                    }
+                    <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                `;
+                
+                this.messagesContainer.appendChild(messageDiv);
+                this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+                
+                this.chatHistory.push({ text, type, timestamp: Date.now() });
+            }
+
+            addSystemMessage(text) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message system';
+                messageDiv.innerHTML = `
+                    <div>${text}</div>
+                    <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                `;
+                
+                this.messagesContainer.appendChild(messageDiv);
+                this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+            }
+
+            simulateTranslation(text) {
+                // Simple simulation of translation
+                const translations = {
+                    "Hello! Great to meet you!": "¡Hola! ¡Encantado de conocerte!",
+                    "Hi there! How's your day going?": "¡Hola! ¿Cómo va tu día?",
+                    "The weather's been great lately!": "¡El clima ha estado genial últimamente!",
+                    "That's interesting!": "¡Eso es interesante!",
+                    "Cool!": "¡Genial!",
+                    "Really?": "¿En serio?",
+                    "Wow, that's awesome!": "¡Wow, eso es increíble!"
+                };
+                
+                return translations[text] || `[Translated] ${text}`;
+            }
+
+            toggleTranslation() {
+                this.translationEnabled = !this.translationEnabled;
+                this.translationToggle.classList.toggle('active');
+                
+                const status = this.translationEnabled ? "enabled" : "disabled";
+                this.addSystemMessage(`Auto-translation ${status}`);
+            }
+
+            startNewChat() {
+                this.disconnect();
+                setTimeout(() => {
+                    this.messagesContainer.innerHTML = '<div class="message system">Finding a new chat partner...</div>';
+                    this.waitingScreen.classList.remove('hidden');
+                    this.simulateConnection();
+                }, 1000);
+            }
+
+            disconnect() {
+                this.isConnected = false;
+                this.messageInput.disabled = true;
+                this.sendBtn.disabled = true;
+                
+                this.partnerName.textContent = "Disconnected";
+                this.partnerStatus.textContent = "Not connected";
+                this.partnerAvatar.textContent = "❌";
+                
+                this.addSystemMessage("Chat ended. Click 'New Chat' to find another partner!");
+                
+                this.messageCount = 0;
+                this.messageCountEl.textContent = this.messageCount;
+            }
+
+            startChatTimer() {
+                setInterval(() => {
+                    if (this.chatStartTime) {
+                        const duration = Math.floor((Date.now() - this.chatStartTime) / 1000);
+                        const minutes = Math.floor(duration / 60);
+                        const seconds = duration % 60;
+                        this.chatDurationEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    }
+                }, 1000);
+            }
+
+            updateOnlineCount() {
+                const baseCount = 1200;
+                const variation = Math.floor(Math.random() * 100);
+                const count = baseCount + variation;
+                this.onlineCountEl.textContent = `${count.toLocaleString()} users online`;
+            }
+
+            delay(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+        }
+
+        // Initialize the chat application
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatApp = new ChatMingle();
+            
+            console.log('🌐 ChatMingle Initialized');
+            console.log('Features:');
+            console.log('- Random stranger matching');
+            console.log('- AI-powered conversation suggestions');
+            console.log('- Real-time translation');
+            console.log('- Content moderation');
+            console.log('- Chat analytics');
+        });
+    </script>
+</body>
+</html>
